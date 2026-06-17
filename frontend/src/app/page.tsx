@@ -47,10 +47,7 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="hero-badge">
-            <span className="hero-badge-dot" />
-            Powered by ExcelJS
-          </div>
+
 
           <h1>
             Transform Your Data into{" "}
