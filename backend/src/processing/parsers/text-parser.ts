@@ -86,7 +86,7 @@ export class TextParser {
 
   private parseLine(line: string, delimiter: string): string[] {
     if (delimiter === '\n') {
-      return [line];
+      return [this.cleanField(line)];
     }
 
     const fields: string[] = [];
@@ -113,6 +113,19 @@ export class TextParser {
     }
 
     fields.push(current.trim());
-    return fields;
+    return fields.map((field) => this.cleanField(field));
+  }
+
+  private cleanField(field: string): string {
+    // Strip markdown links like [visible text](url) to just 'visible text'
+    let clean = field.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
+    
+    // Also remove surrounding double quotes if present
+    if (clean.startsWith('"') && clean.endsWith('"')) {
+      clean = clean.slice(1, -1);
+    }
+    
+    return clean.trim();
   }
 }
+
