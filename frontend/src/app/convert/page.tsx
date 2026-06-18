@@ -130,11 +130,12 @@ export default function ConvertPage() {
                     "application/msword": [".doc"],
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                       [".docx"],
+                    "application/pdf": [".pdf"],
                   }}
                   onFileSelect={setFile}
                   selectedFile={file}
                   onClear={() => setFile(null)}
-                  acceptLabel=".doc, .docx"
+                  acceptLabel=".doc, .docx, .pdf"
                   id="convert-file-uploader"
                 />
               </div>

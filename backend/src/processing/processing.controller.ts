@@ -40,6 +40,7 @@ export class ProcessingController {
         allowedMimeTypes: [
           'application/msword',
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/pdf',
         ],
       }),
     )

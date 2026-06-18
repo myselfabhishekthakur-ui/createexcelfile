@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TextParser } from './parsers/text-parser';
 import { DocParser } from './parsers/doc-parser';
+import { PdfParser } from './parsers/pdf-parser';
 import { ExcelService } from '../excel/excel.service';
 import { FilesService } from '../files/files.service';
 import { ProcessingHistoryEntity } from '../database/entities/processing-history.entity';
@@ -15,6 +16,7 @@ export class ProcessingService {
   constructor(
     private readonly textParser: TextParser,
     private readonly docParser: DocParser,
+    private readonly pdfParser: PdfParser,
     private readonly excelService: ExcelService,
     private readonly filesService: FilesService,
     @InjectRepository(ProcessingHistoryEntity)
@@ -89,7 +91,9 @@ export class ProcessingService {
     await this.historyRepo.save(history);
 
     try {
-      const parsedData = await this.docParser.parse(file.buffer);
+      const parsedData = file.mimetype === 'application/pdf'
+        ? await this.pdfParser.parse(file.buffer)
+        : await this.docParser.parse(file.buffer);
 
       if (parsedData.headers.length === 0 && parsedData.rows.length === 0) {
         throw new Error(
