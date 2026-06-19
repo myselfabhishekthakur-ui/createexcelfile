@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
+import { VoiceChatBot } from "@/components/VoiceChatBot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +34,9 @@ export default function RootLayout({
       <body style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
         <Navbar />
         {children}
+        <VoiceChatBot />
       </body>
     </html>
   );
 }
+
